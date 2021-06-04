@@ -63,7 +63,7 @@ Details of the three elements are as follows:
 
 We have provided a dataset "yelp-small" for example, and all the four programs can run directly on this dataset. If you want to try other datasets or try other parameter settings, please modify the macros in **dev.h** before compiling.
 
-### 2.2 Setting Macros
+### 2.2 Set Macros
 
 Before compiling the program, you should make sure that the macros in **dev.h** are set correctly. The macros you need to check are as follows:
 
