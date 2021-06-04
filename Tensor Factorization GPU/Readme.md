@@ -113,7 +113,7 @@ yhrun -N <node number> -n <task number> <executable file>
 Since our program runs on a single node and using only one task, the submitting command becomes:
 
 ```
-yhrun -N 1 -n 1 ./SGD.exe
+yhrun -N 1 -n 1 SGD.exe
 ```
 
 If not on TianHe2 platform, the submitting command may be different.
