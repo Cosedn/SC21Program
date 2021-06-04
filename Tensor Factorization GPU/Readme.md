@@ -105,7 +105,7 @@ At present the programs can only run on a single node. To run KroMagnon-TF_1GPU,
 
 To check the GPU devices counts in a node, you can run `nvidia-smi` or `lspci | grep -i nvidia` command.
 
-The program can be executed by specifying the task number (MPI process number) when submitted to the cluster. On Tian-He2 platform, we use `yhrun` command to submit a program:
+The program can be executed by specifying the task number (MPI process number) when submitted to the cluster. On TianHe2 platform, we use `yhrun` command to submit a program:
 
 ```
 yhrun -N <node number> -n <task number> <executable file>
@@ -117,5 +117,5 @@ Since our program runs on a single node and using only one task, the submitting 
 yhrun -N 1 -n 1 ./SGD.exe
 ```
 
-If not on Tian-He2 platform, the submitting command may be different.
+If not on TianHe2 platform, the submitting command may be different.
 
