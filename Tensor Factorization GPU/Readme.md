@@ -22,7 +22,7 @@ i = blockIdx.x * blockDim.x + threadIdx.x;
 
 while(i < NONZEROS_NUM)
 {
-    Processing the *i*th nonzero;
+    Processing the i-th nonzero;
 	i += gridDim.x * blockDim.x;
 }
 ```
