@@ -27,7 +27,7 @@ while(i < NONZEROS_NUM)
 }
 ```
 
-The sum of threads of each CUDA kernel function will be BLOCK_NUM \* THREAD_NUM. If BLOCK_NUM \* THREAD_NUM > NONZEROS_NUM, some threads will not process nonzero. BLOCK_NUM \* THREAD_NUM < NONZEROS_NUM, some threads will process more than 1 nonzeros.
+The sum of threads of each CUDA kernel function will be BLOCK_NUM \* THREAD_NUM. If BLOCK_NUM \* THREAD_NUM > NONZEROS_NUM, some threads will not process nonzeros. BLOCK_NUM \* THREAD_NUM < NONZEROS_NUM, some threads will process more than 1 nonzeros.
 
 The output of each program is "record" file, which includes RMSE results and "average time per loop". The "average time per loop" is the total time of iterations devided by MAX_ITER. The program currently does not output more details such as the training result of U, V, W and R. To see them, you need to write the print code yourself.
 
