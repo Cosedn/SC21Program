@@ -35,15 +35,14 @@ The output of each program is "record" file, which includes RMSE results and "av
 
 We test the four programs on TianHe2 GPU Platform. The hardware and software information of TianHe2 GPU Platform is as follows:
 
-Hardware:
-Operating System: CentOS 7, Linux version 3.10.0-327.el7.x86_64
-CPU: Intel Xeon E5-2660 v3 CPU 2.60 GHz, 10 cores
-RAM：256GB
-GPU: NVIDIA Tesla K80 GPU, 4992 CUDA cores (26 multiprocessors, 192 CUDA cores each multiprocessor), 24GB Global Memory
-Node: Each node has 1 CPU and 2 GPUs. Each GPU has two independent devices, and each GPU device has 13 multiprocessors. Each node has 4 GPU devices.
-
-Software:
-Compiler: nvcc (NVIDIA CUDA 8.0, C++ 11)
+- Hardware:
+ - Operating System: CentOS 7, Linux version 3.10.0-327.el7.x86_64
+ - CPU: Intel Xeon E5-2660 v3 CPU 2.60 GHz, 10 cores
+ - RAM：256GB
+ - GPU: NVIDIA Tesla K80 GPU, 4992 CUDA cores (26 multiprocessors, 192 CUDA cores each multiprocessor), 24GB Global Memory
+ - Node: Each node has 1 CPU and 2 GPUs. Each GPU has two independent devices, and each GPU device has 13 multiprocessors. Each node has 4 GPU devices.
+- Software:
+ - Compiler: nvcc (NVIDIA CUDA 8.0, C++ 11)
 
 Currently we do not test our program on other platforms.
 
