@@ -11,7 +11,7 @@ This project includes the CUDA implementations of 3 sparse tensor PARAFAC(CP) de
 | Hogwild_1GPU       | Hogwild! paralleled with 1 GPU.  |
 | CUSNTF_1GPU        | CUSNTF paralleled with 1 GPU.   |
 
-We use the macros in Section 2.2 to describe our programs. All the four programs is to factorize a 3-order sparse tensor R of size DIM0_LEN \* DIM1_LEN \* DIM2_LEN into 3 matrices U, V and W. The sizes of U, V and W are DIM0_LEN \* ATTR, DIM1_LEN \* ATTR and DIM2_LEN \* ATTR, respectively. KroMagnon-TF is the algorithm we proposed, which accelerates gradient descent convergence using KroMagnon, a Stochastic Variance Reduced Gradient (SVRG) method. Hogwild! and CUSNTF are previous algorithms used to compare with KroMagnon-TF.
+We use the macros in Section 3.2 to describe our programs. All the four programs is to factorize a 3-order sparse tensor R of size DIM0_LEN \* DIM1_LEN \* DIM2_LEN into 3 matrices U, V and W. The sizes of U, V and W are DIM0_LEN \* ATTR, DIM1_LEN \* ATTR and DIM2_LEN \* ATTR, respectively. KroMagnon-TF is the algorithm we proposed, which accelerates gradient descent convergence using KroMagnon, a Stochastic Variance Reduced Gradient (SVRG) method. Hogwild! and CUSNTF are previous algorithms used to compare with KroMagnon-TF.
 
 For KroMagnon-TF and Hogwild!, the programs will iterate MAX_ITER \* NONZEROS_NUM times. The stepsize of each iteration is LEARNING_RATE, and the regularization parameter LAMBDA is used to prevent overfitting. For all algorithms, each program will compute RMSE MAX_ITER times.
 
@@ -31,7 +31,7 @@ The sum of threads of each CUDA kernel function will be BLOCK_NUM \* THREAD_NUM.
 
 The output of each program is "record" file, which includes RMSE results and "average time per loop". The "average time per loop" is the total time of iterations devided by MAX_ITER. The program currently does not output more details such as the training result of U, V, W and R. To see them, you need to write the print code yourself.
 
-### 1.2 Platform
+## 2 Platform
 
 We test the four programs on TianHe2 GPU Platform. The hardware and software information of TianHe2 GPU Platform is as follows:
 
@@ -46,9 +46,9 @@ We test the four programs on TianHe2 GPU Platform. The hardware and software inf
 
 Currently we do not test our program on other platforms.
 
-## 2 Getting Started
+## 3 Getting Started
 
-### 2.1 Prepare Dataset
+### 3.1 Prepare Dataset
 
 The sparse tensor R should be a 3-order tensor. The dataset should only store nonzeros of R in COO format, i.e., each nonzero is stored as (DIM0 index | DIM1 index | DIM2 index | value).
 
@@ -63,7 +63,7 @@ Details of the three elements are as follows:
 
 We have provided a dataset "yelp-small" for example, and all the four programs can run directly on this dataset. If you want to try other datasets or try other parameter settings, please modify the macros in **dev.h** before compiling.
 
-### 2.2 Set Macros
+### 3.2 Set Macros
 
 Before compiling the program, you should make sure that the macros in **dev.h** are set correctly. The macros you need to check are as follows:
 
@@ -92,13 +92,13 @@ Here is when you need to modify these marcos:
 
 * If you want to improve CUDA parallel efficiecy on a different GPU, you can modify BLOCK_NUM and THREAD_NUM.
 
-### 2.3 Compile
+### 3.3 Compile
 
 To compile a program, just use "make" command to execute the makefile in the folder of the program.
 
 If the compiling is successful, an executable file "SGD.exe" will be generated.
 
-### 2.4 Run
+### 3.4 Run
 
 At present the programs can only run on a single node. To run KroMagnon-TF_1GPU, Hogwild_1GPU, and CUSNTF_1GPU, you need to make sure that at least 1 GPU device can be detected on the node. To run KroMagnon-TF_4GPUs, you need to make sure that at least 4 GPU devices can be detected on the node.
 
