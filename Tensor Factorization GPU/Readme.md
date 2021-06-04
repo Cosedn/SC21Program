@@ -36,7 +36,7 @@ The output of each program is "record" file, which includes RMSE results and "av
 We test the four programs on TianHe2 GPU Platform. The hardware and software information of TianHe2 GPU Platform is as follows:
 
 Hardware:
-Operating System: CentOS 7
+Operating System: CentOS 7, Linux version 3.10.0-327.el7.x86_64
 CPU: Intel Xeon E5-2660 v3 CPU 2.60 GHz, 10 cores
 RAM：256GB
 GPU: NVIDIA Tesla K80 GPU, 4992 CUDA cores (26 multiprocessors, 192 CUDA cores each multiprocessor), 24GB Global Memory
