@@ -2,7 +2,7 @@
 
 ## 1 Description
 
-This project includes the CUDA implementations of 3 sparse tensor PARAFAC(CP) decomposition algorithms: KroMagnon-TF, Hogwild!, and CUSNTF. The project include four programs and a dataset "yelp-small". Each program is in a folder. The folders are described as follows:
+This project includes the CUDA implementations of three sparse tensor PARAFAC(CP) decomposition algorithms: KroMagnon-TF, Hogwild!, and CUSNTF. The project include four programs and a dataset "yelp-small". Each program is in a folder. The folders are described as follows:
 
 |  FOLDER NAME       | DESCRIPTION |
 | ---------------- | ----------- |
@@ -11,11 +11,11 @@ This project includes the CUDA implementations of 3 sparse tensor PARAFAC(CP) de
 | Hogwild_1GPU       | Hogwild! paralleled with 1 GPU.  |
 | CUSNTF_1GPU        | CUSNTF paralleled with 1 GPU.   |
 
-We use the macros in Section 3.2 to describe our programs. All the four programs is to factorize a 3-order sparse tensor R of size DIM0_LEN \* DIM1_LEN \* DIM2_LEN into 3 matrices U, V and W. The sizes of U, V and W are DIM0_LEN \* ATTR, DIM1_LEN \* ATTR and DIM2_LEN \* ATTR, respectively. KroMagnon-TF is the algorithm we proposed, which accelerates gradient descent convergence using KroMagnon, a Stochastic Variance Reduced Gradient (SVRG) method. Hogwild! and CUSNTF are previous algorithms used to compare with KroMagnon-TF.
+We use the macros in Section 3.2 to describe our programs. All four programs are to factorize a 3-order sparse tensor R of size DIM0_LEN \* DIM1_LEN \* DIM2_LEN into three matrices U, V and W. The sizes of U, V and W are DIM0_LEN \* ATTR, DIM1_LEN \* ATTR and DIM2_LEN \* ATTR, respectively. KroMagnon-TF is the algorithm we proposed, which accelerates gradient descent convergence using KroMagnon, a Stochastic Variance Reduced Gradient (SVRG) method. Hogwild! and CUSNTF are previous algorithms used to compare with KroMagnon-TF.
 
 For KroMagnon-TF and Hogwild!, the programs will iterate MAX_ITER \* NONZEROS_NUM times. The stepsize of each iteration is LEARNING_RATE, and the regularization parameter LAMBDA is used to prevent overfitting. For all algorithms, each program will compute RMSE MAX_ITER times.
 
-ALL CUDA kernel functions is executed using BLOCK_NUM blocks, each block contains THREAD_NUM threads. The computation of each CUDA thread is implemented like this:
+All CUDA kernel functions are executed using BLOCK_NUM blocks, each block containing THREAD_NUM threads. The computation of each CUDA thread is implemented like this:
 
 ```cuda
 i = blockIdx.x * blockDim.x + threadIdx.x;
@@ -27,20 +27,20 @@ while(i < NONZEROS_NUM)
 }
 ```
 
-The sum of threads of each CUDA kernel function will be BLOCK_NUM \* THREAD_NUM. If BLOCK_NUM \* THREAD_NUM > NONZEROS_NUM, some threads will not process nonzeros. BLOCK_NUM \* THREAD_NUM < NONZEROS_NUM, some threads will process more than 1 nonzeros.
+The sum of threads of each CUDA kernel function will be BLOCK_NUM \* THREAD_NUM. If BLOCK_NUM \* THREAD_NUM > NONZEROS_NUM, some threads will not process nonzeros. BLOCK_NUM \* THREAD_NUM < NONZEROS_NUM, some threads will process more than one nonzeros.
 
-The output of each program is "record" file, which includes RMSE results and "average time per loop". The "average time per loop" is the total time of iterations devided by MAX_ITER. The program currently does not output more details such as the training result of U, V, W and R. To see them, you need to write the print code yourself.
+The output of each program is a file named "record", which includes RMSE results and "average time per loop". The "average time per loop" is the total time of iterations divided by MAX_ITER. The program currently does not output more details such as the training result of U, V, W and R. To see them, you need to write the print code yourself.
 
 ## 2 Platform
 
-We test the four programs on TianHe2 GPU Platform. The hardware and software information of TianHe2 GPU Platform is as follows:
+We test the four programs on the Tianhe2 GPU Platform. The hardware and software information of the Tianhe2 GPU Platform is as follows:
 
 - Hardware:
   - Operating System: CentOS 7, Linux version 3.10.0-327.el7.x86_64
   - CPU: Intel Xeon E5-2660 v3 CPU 2.60 GHz, 10 cores
   - RAM：256GB
   - GPU: NVIDIA Tesla K80 GPU, 4992 CUDA cores (26 multiprocessors, 192 CUDA cores each multiprocessor), 24GB Global Memory
-  - Node: Each node has 1 CPU and 2 GPUs. Each GPU has two independent devices, and each GPU device has 13 multiprocessors. Each node has 4 GPU devices.
+  - Node: Each node has 1 CPU and 2 GPUs. Each GPU has two independent devices, and each GPU device has 13 multiprocessors. Each node has 4 GPU devices
 - Software:
   - Compiler: nvcc (NVIDIA CUDA 8.0, C++ 11)
 
@@ -59,7 +59,7 @@ Details of the three elements are as follows:
 |DIM0 index	  | integer	  |		0 to DIM0_LEN   |
 |DIM1 index   | integer	  |		0 to DIM1_LEN   |
 |DIM2 index   | integer	  |		0 to DIM2_LEN   |
-|value        | double    |        >=0          |
+|value        | float     |        >=0          |
 
 We have provided a dataset "yelp-small" for example, and all the four programs can run directly on this dataset. If you want to try other datasets or try other parameter settings, please modify the macros in **dev.h** before compiling.
 
@@ -84,11 +84,11 @@ Before compiling the program, you should make sure that the macros in **dev.h** 
 |    BLOCK_NUM       |        integer      | The number of blocks of CUDA kernel functions. |
 |    THREAD_NUM      |        integer      | The number of threads in each block. |
 
-Here is when you need to modify these marcos:
+Here is when you need to modify these macros:
 
 * If you try other datasets on our programs, you need to modify DIM0_LEN, DIM1_LEN, DIM2_LEN and NONZEROS_NUM.
 
-* If you want try different arguments to train the same dataset, you can modify ATTR, LEARNING_RATE, LAMBDA, MAX_ITER, RANDOM_MIN and RANDOM_MAX.
+* If you want to try different arguments to train the same dataset, you can modify ATTR, LEARNING_RATE, LAMBDA, MAX_ITER, RANDOM_MIN and RANDOM_MAX.
 
 * If you want to improve CUDA parallel efficiecy on a different GPU, you can modify BLOCK_NUM and THREAD_NUM.
 
@@ -100,21 +100,20 @@ If the compiling is successful, an executable file "SGD.exe" will be generated.
 
 ### 3.4 Run
 
-At present the programs can only run on a single node. To run KroMagnon-TF_1GPU, Hogwild_1GPU, and CUSNTF_1GPU, you need to make sure that at least 1 GPU device can be detected on the node. To run KroMagnon-TF_4GPUs, you need to make sure that at least 4 GPU devices can be detected on the node.
+At present the programs can only run on a single node. To run KroMagnon-TF_1GPU, Hogwild_1GPU, and CUSNTF_1GPU, you need to ensure that at least one GPU device can be detected on the node. To run KroMagnon-TF_4GPUs, you need to ensure that at least four GPU devices can be detected on the node.
 
-To check the GPU devices counts in a node, you can run `nvidia-smi` or `lspci | grep -i nvidia` command.
+To check the GPU device counts in a node, you can run `nvidia-smi` or `lspci | grep -i nvidia` command.
 
-The program can be executed by specifying the task number (MPI process number) when submitted to the cluster. On TianHe2 platform, we use `yhrun` command to submit a program:
+The program can be executed by specifying the task number (MPI process number) when submitted to the cluster. On the Tianhe2 Platform, we use `yhrun` command to submit a job:
 
 ```
 yhrun -N <node number> -n <task number> <executable file>
 ```
 
-Since our program runs on a single node and using only one task, the submitting command becomes:
+Since our program runs on a single node and uses only one task, the command becomes:
 
 ```
 yhrun -N 1 -n 1 SGD.exe
 ```
 
-If not on TianHe2 platform, the submitting command may be different.
-
+If not on the Tianhe2 Platform, the command of submitting jobs may not be `yhrun`.
