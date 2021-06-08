@@ -31,7 +31,7 @@ The sum of threads of each CUDA kernel function will be BLOCK_NUM \* THREAD_NUM.
 
 The output of each program is a file named "record", which includes RMSE results and "average time per loop". The "average time per loop" is the total time of iterations divided by MAX_ITER. The program currently does not output more details such as the training result of U, V, W and R. To see them, you need to write the print code yourself.
 
-## 2 Platform
+## 2 Hardware and Software Information
 
 We test the four programs on the Tianhe2 GPU Platform. The hardware and software information of the Tianhe2 GPU Platform is as follows:
 
@@ -42,7 +42,11 @@ We test the four programs on the Tianhe2 GPU Platform. The hardware and software
   - GPU: NVIDIA Tesla K80 GPU, 4992 CUDA cores (26 multiprocessors, 192 CUDA cores each multiprocessor), 24GB Global Memory
   - Node: Each node has 1 CPU and 2 GPUs. Each GPU has two independent devices, and each GPU device has 13 multiprocessors. Each node has 4 GPU devices
 - Software:
-  - Compiler: nvcc (NVIDIA CUDA 8.0, C++ 11)
+  - Compiler: nvcc V8.0.44
+  - Libraries: standard libraries of NVIDIA CUDA 8.0 and C++ 11, no third party libraries used.
+  - Applications: N/A
+  - Algorithms: KroMagnon-TF, Hogwild!, CUSNTF
+  - Input Dataset: We provided a "yelp-small" for example, but uses can input other datasets.
 
 Currently we do not test our program on other platforms.
 
